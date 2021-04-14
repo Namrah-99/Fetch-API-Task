@@ -1,10 +1,23 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Button, Text, View } from "react-native";
+import { Pressable, StyleSheet, Button, Text, View, Alert } from "react-native";
+import Modal from "react-native-modal";
 import { MaterialCommunityIcons as Icons } from "react-native-vector-icons";
+
 const singlearray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 export default function App() {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+  const showModal = () => {
+    setModalVisible(true);
+  };
+  const hideModal = () => {
+    setModalVisible(false);
+  };
   const [getB1, setB1] = useState("");
   const [getB2, setB2] = useState("");
   const [getB3, setB3] = useState("");
@@ -111,6 +124,7 @@ export default function App() {
     ) {
       setCurrentPlayer("");
       setOutput(' 1ST PLAYER "X"');
+      setModalVisible(true);
     } else if (
       (singlearray[0] === 2 && singlearray[1] === 2 && singlearray[2] === 2) ||
       (singlearray[0] === 2 && singlearray[4] === 2 && singlearray[8] === 2) ||
@@ -124,6 +138,7 @@ export default function App() {
     ) {
       setCurrentPlayer("");
       setOutput(' 2ND PLAYER "O"');
+      setModalVisible(true);
     } else if (
       singlearray[0] !== 0 &&
       singlearray[1] !== 0 &&
@@ -137,10 +152,12 @@ export default function App() {
     ) {
       setCurrentPlayer("");
       setOutput('NoOne is winner "DRAW GAME"');
+      setModalVisible(true);
     }
   };
 
   const restart = () => {
+    setModalVisible(false);
     setB1(""),
       setB2(""),
       setB3(""),
@@ -165,11 +182,38 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <View style={{ flex: 1 }}>
+        <Modal
+          isVisible={isModalVisible}
+          animationType="slide"
+          transparent={true}
+        >
+          <View style={{ flex: 1 }}>
+            <View style={styles.modalview}>
+              <Text />
+              {"Winner of the game : "}
+              <Text />
+              <Text />
+              {getOutput}
+              <Text />
+            </View>
+            <Button
+              style={styles.buttontext}
+              color="midnightblue"
+              title="                        RESTART GAME                        "
+              onPress={restart}
+            >
+              {""}
+            </Button>
+          </View>
+        </Modal>
+      </View>
+
       <Text
         style={{
           textAlign: "center",
           fontWeight: "bold",
-          marginBottom: 8,
+          marginBottom: 2,
           fontSize: 20,
           color: "midnightblue",
         }}
@@ -177,103 +221,105 @@ export default function App() {
         TIC-TAC-TOE GAME
       </Text>
 
-      <View style={{ flexDirection: "row" }}>
-        <Pressable onPress={() => pressHandler(1)}>
-          <View style={styles.box}>
-            <Text style={styles.buttonText}>{getB1}</Text>
-          </View>
-        </Pressable>
-        <Pressable onPress={() => pressHandler(2)}>
-          <View style={styles.box}>
-            <Text style={styles.buttonText}>{getB2}</Text>
-          </View>
-        </Pressable>
-        <Pressable onPress={() => pressHandler(3)}>
-          <View style={styles.box}>
-            <Text style={styles.buttonText}>{getB3}</Text>
-          </View>
-        </Pressable>
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Pressable onPress={() => pressHandler(4)}>
-          <View style={styles.box}>
-            <Text style={styles.buttonText}>{getB4}</Text>
-          </View>
-        </Pressable>
-        <Pressable onPress={() => pressHandler(5)}>
-          <View style={styles.box}>
-            <Text style={styles.buttonText}>{getB5}</Text>
-          </View>
-        </Pressable>
-        <Pressable onPress={() => pressHandler(6)}>
-          <View style={styles.box}>
-            <Text style={styles.buttonText}>{getB6}</Text>
-          </View>
-        </Pressable>
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Pressable onPress={() => pressHandler(7)}>
-          <View style={styles.box}>
-            <Text style={styles.buttonText}>{getB7}</Text>
-          </View>
-        </Pressable>
-        <Pressable onPress={() => pressHandler(8)}>
-          <View style={styles.box}>
-            <Text style={styles.buttonText}>{getB8}</Text>
-          </View>
-        </Pressable>
-        <Pressable onPress={() => pressHandler(9)}>
-          <View style={styles.box}>
-            <Text style={styles.buttonText}>{getB9}</Text>
-          </View>
-        </Pressable>
-      </View>
-      <View></View>
-      <View
-        style={[
-          { justifyContent: "center", padding: "3%", alignItems: "center" },
-        ]}
-      >
-        <Text
-          style={[
-            {
-              fontWeight: "bold",
-              margin: 10,
-              fontSize: "22",
-              justifyContent: "center",
-            },
-          ]}
-        />
-
-        {getOutput == ""
-          ? getCurrentPlayer == 1
-            ? 'Player 1 "X" Turn'
-            : 'Player 2 "O" Turn'
-          : ""}
-        <Text />
-      </View>
-      <View style={styles.modalview}>
-        <Text />
-        {"Winner of the game : "}
-
-        <Text />
-        <Text />
-        {getOutput}
-        <Text />
-      </View>
       <View>
-        <Button
-          style={{ margin: 20 }}
-          color="midnightblue"
-          title=" RESTART GAME "
-          onPress={restart}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "midnightblue",
+            color: "white",
+            padding: 8,
+          }}
         >
-          {" "}
-        </Button>
+          <Text
+            style={[
+              {
+                fontWeight: "bold",
+                margin: 2,
+                fontSize: "22",
+                justifyContent: "center",
+              },
+            ]}
+          />
+
+          {getOutput == ""
+            ? getCurrentPlayer == 1
+              ? 'Player 1 "X" Turn'
+              : 'Player 2 "O" Turn'
+            : ""}
+          <Text />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Pressable onPress={() => pressHandler(1)}>
+            <View style={styles.box}>
+              <Text>{getB1}</Text>
+            </View>
+          </Pressable>
+          <Pressable onPress={() => pressHandler(2)}>
+            <View style={styles.box}>
+              <Text>{getB2}</Text>
+            </View>
+          </Pressable>
+          <Pressable onPress={() => pressHandler(3)}>
+            <View style={styles.box}>
+              <Text>{getB3}</Text>
+            </View>
+          </Pressable>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Pressable onPress={() => pressHandler(4)}>
+            <View style={styles.box}>
+              <Text>{getB4}</Text>
+            </View>
+          </Pressable>
+          <Pressable onPress={() => pressHandler(5)}>
+            <View style={styles.box}>
+              <Text>{getB5}</Text>
+            </View>
+          </Pressable>
+          <Pressable onPress={() => pressHandler(6)}>
+            <View style={styles.box}>
+              <Text>{getB6}</Text>
+            </View>
+          </Pressable>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Pressable onPress={() => pressHandler(7)}>
+            <View style={styles.box}>
+              <Text>{getB7}</Text>
+            </View>
+          </Pressable>
+          <Pressable onPress={() => pressHandler(8)}>
+            <View style={styles.box}>
+              <Text>{getB8}</Text>
+            </View>
+          </Pressable>
+          <Pressable onPress={() => pressHandler(9)}>
+            <View style={styles.box}>
+              <Text>{getB9}</Text>
+            </View>
+          </Pressable>
+        </View>
       </View>
-      <Text style={{ textAlign: "center", margin: 20 }}>
-        Made By Namrah Saeed
-      </Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -286,11 +332,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#ecf0f1 ",
     padding: 8,
   },
+  buttontext: {
+    margin: 2,
+
+    alignItems: "center",
+  },
   modalview: {
-    margin: 7,
+    margin: 2,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 28,
+    padding: 8,
     alignItems: "center",
     shadowColor: "#000",
     shadowOpacity: 0.25,
