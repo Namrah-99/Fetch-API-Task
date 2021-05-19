@@ -4,39 +4,41 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
   ScrollView,
   SafeAreaView,
   Image,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Products, Employees, Orders } from "./assets/DummyLists.js";
+import { Products, Employees, Orders } from "./components/DummyLists.js";
 
 const Homescreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={{ borderColor: "#F93822FF" }}>
         <Text style={styles.title}>Welcome to HomeScreen</Text>
+        <Text style={styles.titleT}>ONLINE STORE</Text>
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => navigation.navigate("Products List")}
           style={styles.touchButtons}
         >
-          GoTo Product Lists
+          <Text>GoTo Product Lists</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => navigation.navigate("Employees List")}
           style={styles.touchButtons}
         >
-          GoTo Employees List
+          <Text>GoTo Employees List</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => navigation.navigate("Orders List")}
           style={styles.touchButtons}
         >
-          GoTo Orders List
+          <Text>GoTo Orders List</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -44,75 +46,67 @@ const Homescreen = ({ navigation }) => {
 };
 const ProductsList = ({ navigation }) => {
   const [getPList, setPList] = useState(Products);
-  const scrollView = ( //const JSX statement
-    <ScrollView style={styles.scrollview}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container3}>
-          {getPList.map((item, index) => (
-            <TouchableOpacity
-              key={item.key}
-              activeOpacity={0.7}
-              //onPress={() => editItems(item)}
-              onPress={() =>
-                navigation.navigate("Product Details", {
-                  key: item.key,
-                  name: item.name,
-                  image: item.image,
-                  price: item.price,
-                  color: item.color,
-                  brand: item.brand,
-                  size: item.size,
-                  category: item.category,
-                })
-              }
-              style={styles.touchProducts}
-            >
-              <Text
-                style={{ fontSize: 12, textAlign: "center", paddingRight: 15 }}
-              >
-                {item.name}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 12,
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  paddingRight: 10,
-                }}
-              >
-                {item.price}
-              </Text>
-              <Image
-                source={{
-                  uri: item.image,
-                }}
-                style={styles.imageStyle}
-              />
-            </TouchableOpacity>
-          ))}
-        </View>
-      </SafeAreaView>
-    </ScrollView>
-  );
-  const emptyScrollView = (
-    <View style={{ alignItems: "center", paddingTop: 20 }}>
-      <Text style={{ fontSize: 20, fontStyle: "italic", color: "grey" }}>
-        No Product Available
-      </Text>
-    </View>
-  );
   return (
     <View style={styles.container1}>
       <Text style={styles.titleT}>Welcome to Products List</Text>
-
-      <View>{getPList.length <= 0 ? emptyScrollView : scrollView}</View>
+      <ScrollView style={styles.scrollview}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.container3}>
+            {getPList.map((item, index) => (
+              <TouchableOpacity
+                key={item.key}
+                activeOpacity={0.7}
+                onPress={() =>
+                  navigation.navigate("Product Details", {
+                    key: item.key,
+                    name: item.name,
+                    image: item.image,
+                    price: item.price,
+                    color: item.color,
+                    brand: item.brand,
+                    size: item.size,
+                    category: item.category,
+                  })
+                }
+                style={styles.touchProducts}
+              >
+                <Text
+                  style={{
+                    fontSize: 12,
+                    textAlign: "center",
+                    paddingRight: 15,
+                  }}
+                >
+                  {item.name}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    paddingRight: 10,
+                  }}
+                >
+                  {item.price}
+                </Text>
+                <Image
+                  source={{
+                    uri: item.image,
+                  }}
+                  style={styles.imageStyle}
+                />
+              </TouchableOpacity>
+            ))}
+          </View>
+        </SafeAreaView>
+      </ScrollView>
       <View style={styles.space}>
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => navigation.goBack()}
           style={styles.touchBPL}
         >
-          Back
+          <Text>Back</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -120,8 +114,7 @@ const ProductsList = ({ navigation }) => {
           onPress={() => navigation.popToTop()}
           style={styles.touchBPL}
         >
-          {" "}
-          GoTo HOME{" "}
+          <Text>GoTo HOME</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -200,15 +193,15 @@ const ProductDetails = ({ navigation, route }) => {
           onPress={() => navigation.goBack()}
           style={styles.touchBPL}
         >
-          Back
+          <Text>Back</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => navigation.popToTop()}
           style={styles.touchBPL}
         >
-          {" "}
-          GoTo HOME{" "}
+          <Text>GoTo HOME</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -216,72 +209,62 @@ const ProductDetails = ({ navigation, route }) => {
 };
 const EmployeesList = ({ navigation }) => {
   const [getEList, setEList] = useState(Employees);
-  const scrollView = ( //const JSX statement
-    <ScrollView style={styles.scrollview}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container3}>
-          {getEList.map((item, index) => (
-            <TouchableOpacity
-              key={item.key}
-              activeOpacity={0.7}
-              //onPress={() => editItems(item)}
-              onPress={() =>
-                navigation.navigate("Employee Details", {
-                  key: item.key,
-                  name: item.name,
-                  designation: item.designation,
-                  phoneNumber: item.phoneNumber,
-                  workingShift: item.workingShift,
-                  address: item.address,
-                  earning: item.earning,
-                })
-              }
-              style={styles.touchProducts}
-            >
-              <Text
-                style={{
-                  fontSize: 12,
-                  textAlign: "center",
-                  paddingRight: 15,
-                }}
-              >
-                {item.name}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 12,
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  paddingRight: 10,
-                }}
-              >
-                {item.designation}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </SafeAreaView>
-    </ScrollView>
-  );
-  const emptyScrollView = (
-    <View style={{ alignItems: "center", paddingTop: 20 }}>
-      <Text style={{ fontSize: 20, fontStyle: "italic", color: "grey" }}>
-        No Employee Available
-      </Text>
-    </View>
-  );
   return (
     <View style={styles.container1}>
       <Text style={styles.titleT}>Welcome to Employees List</Text>
+      <ScrollView style={styles.scrollview}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.container3}>
+            {getEList.map((item, index) => (
+              <TouchableOpacity
+                key={item.key}
+                activeOpacity={0.7}
+                //onPress={() => editItems(item)}
+                onPress={() =>
+                  navigation.navigate("Employee Details", {
+                    key: item.key,
+                    name: item.name,
+                    designation: item.designation,
+                    phoneNumber: item.phoneNumber,
+                    workingShift: item.workingShift,
+                    address: item.address,
+                    earning: item.earning,
+                  })
+                }
+                style={styles.touchProducts}
+              >
+                <Text
+                  style={{
+                    fontSize: 12,
+                    textAlign: "center",
+                    paddingRight: 15,
+                  }}
+                >
+                  {item.name}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    paddingRight: 10,
+                  }}
+                >
+                  {item.designation}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </SafeAreaView>
+      </ScrollView>
 
-      <View>{getEList.length <= 0 ? emptyScrollView : scrollView}</View>
       <View style={styles.space}>
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => navigation.goBack()}
           style={styles.touchBPL}
         >
-          Back
+          <Text>Back</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -289,8 +272,7 @@ const EmployeesList = ({ navigation }) => {
           onPress={() => navigation.popToTop()}
           style={styles.touchBPL}
         >
-          {" "}
-          GoTo HOME{" "}
+          <Text>GoTo HOME</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -357,15 +339,15 @@ const EmployeeDetails = ({ navigation, route }) => {
           onPress={() => navigation.goBack()}
           style={styles.touchBPL}
         >
-          Back
+          <Text>Back</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => navigation.popToTop()}
           style={styles.touchBPL}
         >
-          {" "}
-          GoTo HOME{" "}
+          <Text>GoTo HOME</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -373,82 +355,71 @@ const EmployeeDetails = ({ navigation, route }) => {
 };
 const OrdersList = ({ navigation }) => {
   const [getOList, setOList] = useState(Orders);
-  const scrollView = ( //const JSX statement
-    <ScrollView style={styles.scrollview}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container3}>
-          {getOList.map((item, index) => (
-            <TouchableOpacity
-              key={item.key}
-              activeOpacity={0.7}
-              //onPress={() => editItems(item)}
-              onPress={() =>
-                navigation.navigate("Order Details", {
-                  key: item.key,
-                  orderNo: item.orderNo,
-                  productName: item.productName,
-                  price: item.price,
-                  customerInformation: item.customerInformation,
-                  orderDate: item.orderDate,
-                  shippingStatus: item.shippingStatus,
-                })
-              }
-              style={styles.touchProducts}
-            >
-              <Text
-                style={{
-                  fontSize: 12,
-                  textAlign: "center",
-                  paddingRight: 15,
-                }}
-              >
-                {item.orderNo}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 12,
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  paddingRight: 10,
-                }}
-              >
-                {item.productName}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 12,
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  paddingRight: 10,
-                }}
-              >
-                {item.price}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </SafeAreaView>
-    </ScrollView>
-  );
-  const emptyScrollView = (
-    <View style={{ alignItems: "center", paddingTop: 20 }}>
-      <Text style={{ fontSize: 20, fontStyle: "italic", color: "grey" }}>
-        No Orders Available
-      </Text>
-    </View>
-  );
   return (
     <View style={styles.container1}>
       <Text style={styles.titleT}>Welcome to Orders List</Text>
-
-      <View>{getOList.length <= 0 ? emptyScrollView : scrollView}</View>
+      <ScrollView style={styles.scrollview}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.container3}>
+            {getOList.map((item, index) => (
+              <TouchableOpacity
+                key={item.key}
+                activeOpacity={0.7}
+                //onPress={() => editItems(item)}
+                onPress={() =>
+                  navigation.navigate("Order Details", {
+                    key: item.key,
+                    orderNo: item.orderNo,
+                    productName: item.productName,
+                    price: item.price,
+                    customerInformation: item.customerInformation,
+                    orderDate: item.orderDate,
+                    shippingStatus: item.shippingStatus,
+                  })
+                }
+                style={styles.touchProducts}
+              >
+                <Text
+                  style={{
+                    fontSize: 12,
+                    textAlign: "center",
+                    paddingRight: 15,
+                  }}
+                >
+                  {item.orderNo}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    paddingRight: 10,
+                  }}
+                >
+                  {item.productName}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    paddingRight: 10,
+                  }}
+                >
+                  {item.price}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </SafeAreaView>
+      </ScrollView>
       <View style={styles.space}>
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => navigation.goBack()}
           style={styles.touchBPL}
         >
-          Back
+          <Text>Back</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -456,8 +427,7 @@ const OrdersList = ({ navigation }) => {
           onPress={() => navigation.popToTop()}
           style={styles.touchBPL}
         >
-          {" "}
-          GoTo HOME{" "}
+          <Text>GoTo HOME</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -524,15 +494,15 @@ const OrderDetails = ({ navigation, route }) => {
           onPress={() => navigation.goBack()}
           style={styles.touchBPL}
         >
-          Back
+          <Text>Back</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => navigation.popToTop()}
           style={styles.touchBPL}
         >
-          {" "}
-          GoTo HOME{" "}
+          <Text>GoTo HOME</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -573,7 +543,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingTop: 30,
-    //backgroundColor: '#cbf6db',
 
     backgroundColor: "#FEE715FF",
     padding: 8,
@@ -614,7 +583,7 @@ const styles = StyleSheet.create({
     color: "#101820FF",
     textAlign: "center",
     padding: 5,
-    margin: 20,
+    margin: 15,
     marginBottom: 60,
     fontWeight: "bold",
   },
@@ -637,8 +606,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   touchBPL: {
-    //backgroundColor: '#9bc472',
-    //color: 'white',
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
