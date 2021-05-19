@@ -1,327 +1,569 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Button, Text, View, Alert } from "react-native";
-import Modal from "react-native-modal";
-import { MaterialCommunityIcons as Icons } from "react-native-vector-icons";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+  Image,
+} from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Products, Employees, Orders } from "./assets/DummyLists.js";
 
-const singlearray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-export default function App() {
-  const [isModalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-  const showModal = () => {
-    setModalVisible(true);
-  };
-  const hideModal = () => {
-    setModalVisible(false);
-  };
-  const [getB1, setB1] = useState("");
-  const [getB2, setB2] = useState("");
-  const [getB3, setB3] = useState("");
-  const [getB4, setB4] = useState("");
-  const [getB5, setB5] = useState("");
-  const [getB6, setB6] = useState("");
-  const [getB7, setB7] = useState("");
-  const [getB8, setB8] = useState("");
-  const [getB9, setB9] = useState("");
-  const [getOutput, setOutput] = useState("");
-  const [getCurrentPlayer, setCurrentPlayer] = useState(1);
-
-  const pressHandler = (boxNo) => {
-    if (getCurrentPlayer == 1) {
-      if (boxNo == 1 && getB1 == "") {
-        setB1(<Icons name="close" style={styles.boxX} />);
-        singlearray[0] = 1;
-      }
-      if (boxNo == 2 && getB2 == "") {
-        setB2(<Icons name="close" style={styles.boxX} />);
-        singlearray[1] = 1;
-      }
-      if (boxNo == 3 && getB3 == "") {
-        setB3(<Icons name="close" style={styles.boxX} />);
-        singlearray[2] = 1;
-      }
-      if (boxNo == 4 && getB4 == "") {
-        setB4(<Icons name="close" style={styles.boxX} />);
-        singlearray[3] = 1;
-      }
-      if (boxNo == 5 && getB5 == "") {
-        setB5(<Icons name="close" style={styles.boxX} />);
-        singlearray[4] = 1;
-      }
-      if (boxNo == 6 && getB6 == "") {
-        setB6(<Icons name="close" style={styles.boxX} />);
-        singlearray[5] = 1;
-      }
-      if (boxNo == 7 && getB7 == "") {
-        setB7(<Icons name="close" style={styles.boxX} />);
-        singlearray[6] = 1;
-      }
-      if (boxNo == 8 && getB8 == "") {
-        setB8(<Icons name="close" style={styles.boxX} />);
-        singlearray[7] = 1;
-      }
-      if (boxNo == 9 && getB9 == "") {
-        setB9(<Icons name="close" style={styles.boxX} />);
-        singlearray[8] = 1;
-      }
-      setCurrentPlayer(2);
-    } else if (getCurrentPlayer == 2) {
-      if (boxNo == 1 && getB1 == "") {
-        setB1(<Icons name="circle-outline" style={styles.boxO} />);
-        singlearray[0] = 2;
-      }
-      if (boxNo == 2 && getB2 == "") {
-        setB2(<Icons name="circle-outline" style={styles.boxO} />);
-        singlearray[1] = 2;
-      }
-      if (boxNo == 3 && getB3 == "") {
-        setB3(<Icons name="circle-outline" style={styles.boxO} />);
-        singlearray[2] = 2;
-      }
-      if (boxNo == 4 && getB4 == "") {
-        setB4(<Icons name="circle-outline" style={styles.boxO} />);
-        singlearray[3] = 2;
-      }
-      if (boxNo == 5 && getB5 == "") {
-        setB5(<Icons name="circle-outline" style={styles.boxO} />);
-        singlearray[4] = 2;
-      }
-      if (boxNo == 6 && getB6 == "") {
-        setB6(<Icons name="circle-outline" style={styles.boxO} />);
-        singlearray[5] = 2;
-      }
-      if (boxNo == 7 && getB7 == "") {
-        setB7(<Icons name="circle-outline" style={styles.boxO} />);
-        singlearray[6] = 2;
-      }
-      if (boxNo == 8 && getB8 == "") {
-        setB8(<Icons name="circle-outline" style={styles.boxO} />);
-        singlearray[7] = 2;
-      }
-      if (boxNo == 9 && getB9 == "") {
-        setB9(<Icons name="circle-outline" style={styles.boxO} />);
-        singlearray[8] = 2;
-      }
-      setCurrentPlayer(1);
-    }
-    announce();
-  };
-  const announce = () => {
-    if (
-      (singlearray[0] === 1 && singlearray[1] === 1 && singlearray[2] === 1) ||
-      (singlearray[0] === 1 && singlearray[4] === 1 && singlearray[8] === 1) ||
-      (singlearray[0] === 1 && singlearray[3] === 1 && singlearray[6] === 1) ||
-      (singlearray[1] === 1 && singlearray[4] === 1 && singlearray[7] === 1) ||
-      (singlearray[2] === 1 && singlearray[5] === 1 && singlearray[8] === 1) ||
-      (singlearray[2] === 1 && singlearray[4] === 1 && singlearray[6] === 1) ||
-      (singlearray[2] === 1 && singlearray[4] === 1 && singlearray[6] === 1) ||
-      (singlearray[3] === 1 && singlearray[4] === 1 && singlearray[5] === 1) ||
-      (singlearray[6] === 1 && singlearray[7] === 1 && singlearray[8] === 1)
-    ) {
-      setCurrentPlayer("");
-      setOutput(' 1ST PLAYER "X"');
-      setModalVisible(true);
-    } else if (
-      (singlearray[0] === 2 && singlearray[1] === 2 && singlearray[2] === 2) ||
-      (singlearray[0] === 2 && singlearray[4] === 2 && singlearray[8] === 2) ||
-      (singlearray[0] === 2 && singlearray[3] === 2 && singlearray[6] === 2) ||
-      (singlearray[1] === 2 && singlearray[4] === 2 && singlearray[7] === 2) ||
-      (singlearray[2] === 2 && singlearray[5] === 2 && singlearray[8] === 2) ||
-      (singlearray[2] === 2 && singlearray[4] === 2 && singlearray[6] === 2) ||
-      (singlearray[2] === 2 && singlearray[4] === 2 && singlearray[6] === 2) ||
-      (singlearray[3] === 2 && singlearray[4] === 2 && singlearray[5] === 2) ||
-      (singlearray[6] === 2 && singlearray[7] === 2 && singlearray[8] === 2)
-    ) {
-      setCurrentPlayer("");
-      setOutput(' 2ND PLAYER "O"');
-      setModalVisible(true);
-    } else if (
-      singlearray[0] !== 0 &&
-      singlearray[1] !== 0 &&
-      singlearray[2] !== 0 &&
-      singlearray[3] !== 0 &&
-      singlearray[4] !== 0 &&
-      singlearray[5] !== 0 &&
-      singlearray[6] !== 0 &&
-      singlearray[7] !== 0 &&
-      singlearray[8] !== 0
-    ) {
-      setCurrentPlayer("");
-      setOutput('NoOne is winner "DRAW GAME"');
-      setModalVisible(true);
-    }
-  };
-
-  const restart = () => {
-    setModalVisible(false);
-    setB1(""),
-      setB2(""),
-      setB3(""),
-      setB4(""),
-      setB5(""),
-      setB6(""),
-      setB7(""),
-      setB8(""),
-      setB9("");
-    (singlearray[0] = 0),
-      (singlearray[1] = 0),
-      (singlearray[2] = 0),
-      (singlearray[3] = 0),
-      (singlearray[4] = 0),
-      (singlearray[5] = 0),
-      (singlearray[6] = 0),
-      (singlearray[7] = 0),
-      (singlearray[8] = 0);
-    setOutput("");
-    setCurrentPlayer(1);
-  };
-
+const Homescreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <Modal
-          isVisible={isModalVisible}
-          animationType="slide"
-          transparent={true}
+      <View style={{ borderColor: "#F93822FF" }}>
+        <Text style={styles.title}>Welcome to HomeScreen</Text>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("Products List")}
+          style={styles.touchButtons}
         >
-          <View style={{ flex: 1 }}>
-            <View style={styles.modalview}>
-              <Text />
-              {"Winner of the game : "}
-              <Text />
-              <Text />
-              {getOutput}
-              <Text />
-            </View>
-            <Button
-              style={styles.buttontext}
-              color="midnightblue"
-              title="                        RESTART GAME                        "
-              onPress={restart}
-            >
-              {""}
-            </Button>
-          </View>
-        </Modal>
+          GoTo Product Lists
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("Employees List")}
+          style={styles.touchButtons}
+        >
+          GoTo Employees List
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("Orders List")}
+          style={styles.touchButtons}
+        >
+          GoTo Orders List
+        </TouchableOpacity>
       </View>
+    </View>
+  );
+};
+const ProductsList = ({ navigation }) => {
+  const [getPList, setPList] = useState(Products);
+  const scrollView = ( //const JSX statement
+    <ScrollView style={styles.scrollview}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container3}>
+          {getPList.map((item, index) => (
+            <TouchableOpacity
+              key={item.key}
+              activeOpacity={0.7}
+              //onPress={() => editItems(item)}
+              onPress={() =>
+                navigation.navigate("Product Details", {
+                  key: item.key,
+                  name: item.name,
+                  image: item.image,
+                  price: item.price,
+                  color: item.color,
+                  brand: item.brand,
+                  size: item.size,
+                  category: item.category,
+                })
+              }
+              style={styles.touchProducts}
+            >
+              <Text
+                style={{ fontSize: 12, textAlign: "center", paddingRight: 15 }}
+              >
+                {item.name}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  paddingRight: 10,
+                }}
+              >
+                {item.price}
+              </Text>
+              <Image
+                source={{
+                  uri: item.image,
+                }}
+                style={styles.imageStyle}
+              />
+            </TouchableOpacity>
+          ))}
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  );
+  const emptyScrollView = (
+    <View style={{ alignItems: "center", paddingTop: 20 }}>
+      <Text style={{ fontSize: 20, fontStyle: "italic", color: "grey" }}>
+        No Product Available
+      </Text>
+    </View>
+  );
+  return (
+    <View style={styles.container1}>
+      <Text style={styles.titleT}>Welcome to Products List</Text>
 
-      <Text
-        style={{
-          textAlign: "center",
-          fontWeight: "bold",
-          marginBottom: 2,
-          fontSize: 20,
-          color: "midnightblue",
+      <View>{getPList.length <= 0 ? emptyScrollView : scrollView}</View>
+      <View style={styles.space}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.goBack()}
+          style={styles.touchBPL}
+        >
+          Back
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.popToTop()}
+          style={styles.touchBPL}
+        >
+          {" "}
+          GoTo HOME{" "}
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+const ProductDetails = ({ navigation, route }) => {
+  return (
+    <View style={styles.container2}>
+      <Text style={styles.titleT}>Welcome to Product Details</Text>
+
+      <ScrollView style={styles.scrollDetails}>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Key</Text>
+          <Text style={styles.simplePD}>
+            {route.params.key}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Image</Text>
+          <Image
+            style={styles.imageStyle}
+            source={{
+              uri: route.params.image,
+            }}
+          />
+        </View>
+
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Name</Text>
+          <Text style={styles.simplePD}>
+            {route.params.name}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Price</Text>
+          <Text style={styles.simplePD}>
+            {route.params.price}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Color</Text>
+          <Text style={styles.simplePD}>
+            {route.params.color}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Brand</Text>
+          <Text style={styles.simplePD}>
+            {route.params.brand}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Size</Text>
+          <Text style={styles.simplePD}>
+            {route.params.size}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Category</Text>
+          <Text style={styles.simplePD}>
+            {route.params.category}
+            {"\n"}
+          </Text>
+        </View>
+      </ScrollView>
+
+      <View style={styles.space}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.goBack()}
+          style={styles.touchBPL}
+        >
+          Back
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.popToTop()}
+          style={styles.touchBPL}
+        >
+          {" "}
+          GoTo HOME{" "}
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+const EmployeesList = ({ navigation }) => {
+  const [getEList, setEList] = useState(Employees);
+  const scrollView = ( //const JSX statement
+    <ScrollView style={styles.scrollview}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container3}>
+          {getEList.map((item, index) => (
+            <TouchableOpacity
+              key={item.key}
+              activeOpacity={0.7}
+              //onPress={() => editItems(item)}
+              onPress={() =>
+                navigation.navigate("Employee Details", {
+                  key: item.key,
+                  name: item.name,
+                  designation: item.designation,
+                  phoneNumber: item.phoneNumber,
+                  workingShift: item.workingShift,
+                  address: item.address,
+                  earning: item.earning,
+                })
+              }
+              style={styles.touchProducts}
+            >
+              <Text
+                style={{
+                  fontSize: 12,
+                  textAlign: "center",
+                  paddingRight: 15,
+                }}
+              >
+                {item.name}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  paddingRight: 10,
+                }}
+              >
+                {item.designation}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  );
+  const emptyScrollView = (
+    <View style={{ alignItems: "center", paddingTop: 20 }}>
+      <Text style={{ fontSize: 20, fontStyle: "italic", color: "grey" }}>
+        No Employee Available
+      </Text>
+    </View>
+  );
+  return (
+    <View style={styles.container1}>
+      <Text style={styles.titleT}>Welcome to Employees List</Text>
+
+      <View>{getEList.length <= 0 ? emptyScrollView : scrollView}</View>
+      <View style={styles.space}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.goBack()}
+          style={styles.touchBPL}
+        >
+          Back
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.popToTop()}
+          style={styles.touchBPL}
+        >
+          {" "}
+          GoTo HOME{" "}
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+const EmployeeDetails = ({ navigation, route }) => {
+  return (
+    <View style={styles.container2}>
+      <Text style={styles.titleT}>Welcome to Employee Dtails</Text>
+      <ScrollView style={styles.scrollDetails}>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Key</Text>
+          <Text style={styles.simplePD}>
+            {route.params.key}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Employee Name</Text>
+          <Text style={styles.simplePD}>
+            {route.params.name}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Designation</Text>
+          <Text style={styles.simplePD}>
+            {route.params.designation}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Phone Number</Text>
+          <Text style={styles.simplePD}>
+            {route.params.phoneNumber}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Working Shift</Text>
+          <Text style={styles.simplePD}>
+            {route.params.workingShift}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Address</Text>
+          <Text style={styles.simplePD}>
+            {route.params.address}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Earning</Text>
+          <Text style={styles.simplePD}>
+            {route.params.earning}
+            {"\n"}
+          </Text>
+        </View>
+      </ScrollView>
+      <View style={styles.space}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.goBack()}
+          style={styles.touchBPL}
+        >
+          Back
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.popToTop()}
+          style={styles.touchBPL}
+        >
+          {" "}
+          GoTo HOME{" "}
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+const OrdersList = ({ navigation }) => {
+  const [getOList, setOList] = useState(Orders);
+  const scrollView = ( //const JSX statement
+    <ScrollView style={styles.scrollview}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container3}>
+          {getOList.map((item, index) => (
+            <TouchableOpacity
+              key={item.key}
+              activeOpacity={0.7}
+              //onPress={() => editItems(item)}
+              onPress={() =>
+                navigation.navigate("Order Details", {
+                  key: item.key,
+                  orderNo: item.orderNo,
+                  productName: item.productName,
+                  price: item.price,
+                  customerInformation: item.customerInformation,
+                  orderDate: item.orderDate,
+                  shippingStatus: item.shippingStatus,
+                })
+              }
+              style={styles.touchProducts}
+            >
+              <Text
+                style={{
+                  fontSize: 12,
+                  textAlign: "center",
+                  paddingRight: 15,
+                }}
+              >
+                {item.orderNo}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  paddingRight: 10,
+                }}
+              >
+                {item.productName}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  paddingRight: 10,
+                }}
+              >
+                {item.price}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  );
+  const emptyScrollView = (
+    <View style={{ alignItems: "center", paddingTop: 20 }}>
+      <Text style={{ fontSize: 20, fontStyle: "italic", color: "grey" }}>
+        No Orders Available
+      </Text>
+    </View>
+  );
+  return (
+    <View style={styles.container1}>
+      <Text style={styles.titleT}>Welcome to Orders List</Text>
+
+      <View>{getOList.length <= 0 ? emptyScrollView : scrollView}</View>
+      <View style={styles.space}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.goBack()}
+          style={styles.touchBPL}
+        >
+          Back
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.popToTop()}
+          style={styles.touchBPL}
+        >
+          {" "}
+          GoTo HOME{" "}
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+const OrderDetails = ({ navigation, route }) => {
+  return (
+    <View style={styles.container2}>
+      <Text style={styles.titleT}>Welcome to Order Dtails</Text>
+      <ScrollView style={styles.scrollDetails}>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Key</Text>
+          <Text style={styles.simplePD}>
+            {route.params.key}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Order Number</Text>
+          <Text style={styles.simplePD}>
+            {route.params.orderNo}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Product Name</Text>
+          <Text style={styles.simplePD}>
+            {route.params.productName}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Product Price</Text>
+          <Text style={styles.simplePD}>
+            {route.params.price}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Customer Information</Text>
+          <Text style={styles.simplePD}>
+            {route.params.customerInformation}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Order Date</Text>
+          <Text style={styles.simplePD}>
+            {route.params.orderDate}
+            {"\n"}
+          </Text>
+        </View>
+        <View style={styles.space}>
+          <Text style={styles.boldF}>Shipping Status</Text>
+          <Text style={styles.simplePD}>
+            {route.params.shippingStatus}
+            {"\n"}
+          </Text>
+        </View>
+      </ScrollView>
+      <View style={styles.space}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.goBack()}
+          style={styles.touchBPL}
+        >
+          Back
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.popToTop()}
+          style={styles.touchBPL}
+        >
+          {" "}
+          GoTo HOME{" "}
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName={"Home Screen"}
+        screenOptions={{
+          headerTitleAlign: "center",
         }}
       >
-        TIC-TAC-TOE GAME
-      </Text>
-
-      <View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "midnightblue",
-            color: "white",
-            padding: 8,
+        <Stack.Screen
+          name="Home Screen"
+          component={Homescreen}
+          options={{
+            headerShown: false,
           }}
-        >
-          <Text
-            style={[
-              {
-                fontWeight: "bold",
-                margin: 2,
-                fontSize: "22",
-                justifyContent: "center",
-              },
-            ]}
-          />
-
-          {getOutput == ""
-            ? getCurrentPlayer == 1
-              ? 'Player 1 "X" Turn'
-              : 'Player 2 "O" Turn'
-            : ""}
-          <Text />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Pressable onPress={() => pressHandler(1)}>
-            <View style={styles.box}>
-              <Text>{getB1}</Text>
-            </View>
-          </Pressable>
-          <Pressable onPress={() => pressHandler(2)}>
-            <View style={styles.box}>
-              <Text>{getB2}</Text>
-            </View>
-          </Pressable>
-          <Pressable onPress={() => pressHandler(3)}>
-            <View style={styles.box}>
-              <Text>{getB3}</Text>
-            </View>
-          </Pressable>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Pressable onPress={() => pressHandler(4)}>
-            <View style={styles.box}>
-              <Text>{getB4}</Text>
-            </View>
-          </Pressable>
-          <Pressable onPress={() => pressHandler(5)}>
-            <View style={styles.box}>
-              <Text>{getB5}</Text>
-            </View>
-          </Pressable>
-          <Pressable onPress={() => pressHandler(6)}>
-            <View style={styles.box}>
-              <Text>{getB6}</Text>
-            </View>
-          </Pressable>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Pressable onPress={() => pressHandler(7)}>
-            <View style={styles.box}>
-              <Text>{getB7}</Text>
-            </View>
-          </Pressable>
-          <Pressable onPress={() => pressHandler(8)}>
-            <View style={styles.box}>
-              <Text>{getB8}</Text>
-            </View>
-          </Pressable>
-          <Pressable onPress={() => pressHandler(9)}>
-            <View style={styles.box}>
-              <Text>{getB9}</Text>
-            </View>
-          </Pressable>
-        </View>
-      </View>
-      <StatusBar style="auto" />
-    </View>
+        />
+        <Stack.Screen name="Products List" component={ProductsList} />
+        <Stack.Screen name="Product Details" component={ProductDetails} />
+        <Stack.Screen name="Employees List" component={EmployeesList} />
+        <Stack.Screen name="Employee Details" component={EmployeeDetails} />
+        <Stack.Screen name="Orders List" component={OrdersList} />
+        <Stack.Screen name="Order Details" component={OrderDetails} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -329,48 +571,126 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#ecf0f1 ",
-    padding: 8,
-  },
-  buttontext: {
-    margin: 2,
+    alignItems: "center",
+    paddingTop: 30,
+    //backgroundColor: '#cbf6db',
 
-    alignItems: "center",
-  },
-  modalview: {
-    margin: 2,
-    backgroundColor: "white",
-    borderRadius: 20,
+    backgroundColor: "#FEE715FF",
     padding: 8,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    elevation: 5,
   },
-  box: {
-    borderWidth: 4,
+  container1: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "#FFC107",
+    padding: 8,
+  },
+  container2: {
+    flex: 1,
+    alignItems: "center",
+    paddingTop: 30,
+    backgroundColor: "#FCB900",
+    padding: 8,
+  },
+  container3: {
+    flex: 1,
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "#FFEB3B",
+    margin: 10,
+  },
+  scrollDetails: {
+    backgroundColor: "#fff1e1",
+    width: "100%",
+    margin: 3,
+    justifyContent: "center",
+  },
+  scrollview: {
+    width: "100%",
+    margin: 3,
+  },
+  title: {
+    fontSize: 22,
+    //color: '#05716c',
+    color: "#101820FF",
+    textAlign: "center",
+    padding: 5,
+    margin: 20,
+    marginBottom: 60,
+    fontWeight: "bold",
+  },
+  titleT: {
+    fontSize: 18,
+    textAlign: "center",
+    padding: 0,
+    margin: 0,
+    color: "white",
+  },
+  touchButtons: {
+    backgroundColor: "#f57e7e",
+    color: "white",
+    textAlign: "center",
+    borderRadius: 70,
+    padding: 15,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 16,
+  },
+  touchBPL: {
+    //backgroundColor: '#9bc472',
+    //color: 'white',
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 16,
+    outline: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "coral",
+    color: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+  },
+  touchProducts: {
     backgroundColor: "honeydew",
-    borderColor: "midnightblue",
-    width: 100,
-    height: 100,
-  },
-  boxX: {
-    color: "palevioletred",
-    fontSize: 60,
-    flex: 1,
+    color: "white",
+    textAlign: "center",
+    borderRadius: 10,
+    padding: 8,
+    margin: 10,
     alignItems: "center",
-    justifyContent: "center",
+    fontSize: 16,
+    outline: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
   },
-  boxO: {
-    color: "purple",
-    fontSize: 50,
-    flex: 1,
+  space: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
     alignItems: "center",
-    justifyContent: "center",
+    marginHorizontal: 20,
+  },
+  imageStyle: {
+    padding: 10,
+    margin: 5,
+    height: 27,
+    width: 27,
+    resizeMode: "stretch",
+    alignItems: "center",
+    borderRadius: 50,
+    outline: 5,
+    outlineColor: "black",
+  },
+  boldF: {
+    fontWeight: "bold",
+    color: "coral",
+  },
+  simplePD: {
+    color: "#FF9800",
   },
 });
