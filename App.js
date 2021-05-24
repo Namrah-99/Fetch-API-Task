@@ -14,8 +14,8 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import CustomButton from "./assets/AssetExample.js";
-import { listItems } from "./assets/DummyLists.js";
+import CustomButton from "./components/AssetExample.js";
+import { listItems } from "./components/DummyList.js";
 var Calculations = [];
 const Homescreen = ({ navigation }) => {
   return (
@@ -39,7 +39,6 @@ const StartScreen = ({ navigation }) => {
   const [getSave, setSave] = useState(0.0);
   const [getFinal, setFinal] = useState(0.0);
   const [getList, setList] = useState(listItems);
-  const [getEditItem, setEditItem] = useState(0);
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -169,7 +168,7 @@ const StartScreen = ({ navigation }) => {
     </View>
   );
 };
-const ViewHistory = ({ navigation, route }) => {
+const ViewHistory = ({ navigation }) => {
   const [getPList, setPList] = useState(Calculations);
   const removeItems = (itemKey) => {
     var listitem = getPList.filter((item) => item.key != itemKey);
@@ -249,40 +248,37 @@ const ViewHistory = ({ navigation, route }) => {
                 {"Final Price"}
               </Text>
             </View>
-            <View style={styles.container3}>
-              {getPList.map((item, index) => (
-                <TouchableOpacity
-                  key={item.key}
-                  activeOpacity={0.7}
-                  style={styles.touchProducts}
-                >
-                  <Text style={styles.txtP}>{item.originalPrice}</Text>
-                  <Text style={styles.txtP}>{"-"}</Text>
-                  <Text style={styles.txtP}>
-                    {item.discount}
-                    {"%"}
-                  </Text>
-                  <Text style={styles.txtP}>{"="}</Text>
-                  <Text style={styles.txtP}>{item.finalPrice}</Text>
-                  <TouchableOpacity onPress={() => removeItems(item.key)}>
-                    <View style={styles.crossOuter}>
-                      <Text style={styles.crossText}>X</Text>
-                    </View>
-                  </TouchableOpacity>
+
+            {getPList.map((item, index) => (
+              <TouchableOpacity
+                key={item.key}
+                activeOpacity={0.7}
+                style={styles.touchProducts}
+              >
+                <Text style={styles.txtP}>{item.originalPrice}</Text>
+                <Text style={styles.txtP}>{"-"}</Text>
+                <Text style={styles.txtP}>
+                  {item.discount}
+                  {"%"}
+                </Text>
+                <Text style={styles.txtP}>{"="}</Text>
+                <Text style={styles.txtP}>{item.finalPrice}</Text>
+                <TouchableOpacity onPress={() => removeItems(item.key)}>
+                  <View style={styles.crossOuter}>
+                    <Text style={styles.crossText}>X</Text>
+                  </View>
                 </TouchableOpacity>
-              ))}
-            </View>
+              </TouchableOpacity>
+            ))}
           </SafeAreaView>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.popToTop()}
+            style={styles.touchBPL}
+          >
+            <Text style={styles.titlet}>GoToHOME</Text>
+          </TouchableOpacity>
         </ScrollView>
-      </View>
-      <View style={{ alignSelf: "center" }}>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={() => navigation.popToTop()}
-          style={styles.touchBPL}
-        >
-          <Text style={styles.titlet}>GoToHOME</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -335,13 +331,6 @@ const styles = StyleSheet.create({
   container2: {
     flex: 1,
     padding: 0,
-  },
-  container3: {
-    flex: 1,
-    alignItems: "center",
-    padding: 10,
-    backgroundColor: "#FFEB3B",
-    margin: 10,
   },
   container4: {
     flex: 1,
@@ -443,6 +432,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",
+    alignSelf: "center",
     fontSize: 16,
     outline: 5,
     paddingHorizontal: 8,
@@ -450,9 +440,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "coral",
     color: "oldlace",
-    alignSelf: "flex-start",
     marginHorizontal: "1%",
-    marginBottom: 6,
+    margin: 6,
     minWidth: "48%",
   },
   touchProducts: {
@@ -460,8 +449,8 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     borderRadius: 10,
-    padding: 8,
-    margin: 10,
+    padding: 5,
+    marginVertical: 5,
     alignItems: "center",
     fontSize: 16,
     outline: 5,
