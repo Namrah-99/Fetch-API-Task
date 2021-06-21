@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 import {
   View,
@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
-} from "react-native";
+} from 'react-native';
 
 import {
   Container,
@@ -21,7 +21,7 @@ import {
   Right,
   Card,
   CardItem,
-} from "native-base";
+} from 'native-base';
 
 import {
   Ionicons,
@@ -30,10 +30,10 @@ import {
   MaterialCommunityIcons,
   Entypo,
   Octicons,
-} from "@expo/vector-icons";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+} from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const HomeScreen = ({ navigation }) => {
   const [get_data, set_data] = React.useState([]);
@@ -42,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
     fetching_Data();
   }, []);
   const fetching_Data = () => {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch('https://jsonplaceholder.typicode.com/users')
       .then((response) => response.json())
       .then((responseJson) => {
         set_Load(false);
@@ -65,37 +65,35 @@ const HomeScreen = ({ navigation }) => {
   }
   return (
     <Container>
-      <Content style={{ width: "100%" }}>
+      <Content style={{ width: '100%' }}>
         <Header>
-          <Body style={{ alignItems: "flex-start", paddingLeft: 17 }}>
+          <Body style={{ alignItems: 'flex-start', paddingLeft: 17 }}>
             <Text style={styles.text2}>Users Name and Email</Text>
           </Body>
         </Header>
-        <Body style={{ width: "96%" }}>
+        <Body style={{ width: '96%' }}>
           <List
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             dataArray={get_data}
             renderRow={(item) => {
               return (
-                <ListItem style={{ backgroundColor: "white" }}>
+                <ListItem style={{ backgroundColor: 'white' }}>
                   <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() =>
-                      navigation.navigate("BottomTabs", {
+                      navigation.navigate('BottomTabs', {
                         userId: item.id,
                         userData: item,
                       })
                     }
-                    style={styles.cont}
-                  >
+                    style={styles.cont}>
                     <Card>
                       <CardItem>
                         <Body
                           style={{
-                            flexDirection: "row",
+                            flexDirection: 'row',
                             padding: 25,
-                          }}
-                        >
+                          }}>
                           <MaterialCommunityIcons
                             name="account-arrow-right"
                             size={28}
@@ -105,18 +103,16 @@ const HomeScreen = ({ navigation }) => {
                             <Text
                               style={[
                                 styles.text,
-                                { textAlign: "left", color: "navy" },
-                              ]}
-                            >
+                                { textAlign: 'left', color: 'navy' },
+                              ]}>
                               {item.name}
                             </Text>
                             <Text
                               note
                               style={[
                                 styles.text,
-                                { textAlign: "left", color: "navy" },
-                              ]}
-                            >
+                                { textAlign: 'left', color: 'navy' },
+                              ]}>
                               {item.email}
                             </Text>
                           </View>
@@ -126,8 +122,7 @@ const HomeScreen = ({ navigation }) => {
                   </TouchableOpacity>
                 </ListItem>
               );
-            }}
-          ></List>
+            }}></List>
         </Body>
       </Content>
     </Container>
@@ -144,15 +139,14 @@ function BottomTabs({ navigation, route }) {
       activeColor="azure"
       inactiveColor="#f0edf6"
       shifting={true}
-      barStyle={{ backgroundColor: "white" }}
-    >
+      barStyle={{ backgroundColor: 'white' }}>
       <Tab.Screen
         name="UserDetails"
         component={() => (
           <UserDetails navigation={navigation} userId={userId} />
         )}
         options={{
-          tabBarColor: "#B71C1C",
+          tabBarColor: '#B71C1C',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="card-account-details-outline"
@@ -168,7 +162,7 @@ function BottomTabs({ navigation, route }) {
           <Albums navigation={navigation} route={route} userId={userId} />
         )}
         options={{
-          tabBarColor: "#0D47A1",
+          tabBarColor: '#0D47A1',
           tabBarIcon: ({ color }) => (
             <Ionicons name="albums-outline" size={24} color={color} />
           ),
@@ -181,7 +175,7 @@ function BottomTabs({ navigation, route }) {
         )}
         options={{
           //tabBarBadge: true,
-          tabBarColor: "#880E4F",
+          tabBarColor: '#880E4F',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="post-outline"
@@ -197,7 +191,7 @@ function BottomTabs({ navigation, route }) {
           <Todos navigation={navigation} userId={userId} userData={userData} />
         )}
         options={{
-          tabBarColor: "#006064",
+          tabBarColor: '#006064',
           tabBarIcon: ({ color }) => (
             <Octicons name="checklist" size={24} color={color} />
           ),
@@ -227,7 +221,7 @@ const UserDetails = (props) => {
   };
   return (
     <Container>
-      <Header style={{ backgroundColor: "#B71C1C" }}>
+      <Header style={{ backgroundColor: '#B71C1C' }}>
         <Body>
           <Text style={styles.text2}>User Details</Text>
         </Body>
@@ -239,59 +233,58 @@ const UserDetails = (props) => {
           />
         </Right>
       </Header>
-      <Content style={{ width: "100%" }}>
+      <Content style={{ width: '100%' }}>
         <Card>
           <CardItem>
             <Left>
               <Body>
                 <Text
                   style={{
-                    textAlign: "center",
-                    color: "#B71C1C",
-                    fontWeight: "bold",
-                  }}
-                >
+                    textAlign: 'center',
+                    color: '#B71C1C',
+                    fontWeight: 'bold',
+                  }}>
                   INFORMATION
                 </Text>
                 <View style={styles.space}>
                   <Text style={styles.udtext}>ID</Text>
-                  <Text style={[styles.udtext, { textAlign: "right" }]}>
-                    {get_data != undefined ? id : ""}
-                    {"\n"}
+                  <Text style={[styles.udtext, { textAlign: 'right' }]}>
+                    {get_data != undefined ? id : ''}
+                    {'\n'}
                   </Text>
                 </View>
                 <View style={styles.space}>
                   <Text style={styles.udtext}>Name</Text>
-                  <Text style={[styles.udtext, { textAlign: "right" }]}>
-                    {get_data != undefined ? get_data.name : ""}
-                    {"\n"}
+                  <Text style={[styles.udtext, { textAlign: 'right' }]}>
+                    {get_data != undefined ? get_data.name : ''}
+                    {'\n'}
                   </Text>
                 </View>
                 <View style={styles.space}>
                   <Text style={styles.udtext}>UserName</Text>
-                  <Text style={[styles.udtext, { textAlign: "right" }]}>
-                    {get_data != undefined ? get_data.username : ""}
-                    {"\n"}
+                  <Text style={[styles.udtext, { textAlign: 'right' }]}>
+                    {get_data != undefined ? get_data.username : ''}
+                    {'\n'}
                   </Text>
                 </View>
                 <View style={styles.space}>
                   <Text style={styles.udtext}>Email</Text>
-                  <Text style={[styles.udtext, { textAlign: "right" }]}>
-                    {get_data != undefined ? get_data.email : ""}
-                    {"\n"}
+                  <Text style={[styles.udtext, { textAlign: 'right' }]}>
+                    {get_data != undefined ? get_data.email : ''}
+                    {'\n'}
                   </Text>
                 </View>
                 <View style={styles.space}>
                   <Text style={styles.udtext}>Phone</Text>
-                  <Text style={[styles.udtext, { textAlign: "right" }]}>
-                    {get_data != undefined ? get_data.phone : ""}
-                    {"\n"}
+                  <Text style={[styles.udtext, { textAlign: 'right' }]}>
+                    {get_data != undefined ? get_data.phone : ''}
+                    {'\n'}
                   </Text>
                 </View>
                 <View style={styles.space}>
                   <Text style={styles.udtext}>Website</Text>
-                  <Text style={[styles.udtext, { textAlign: "right" }]}>
-                    {get_data != undefined ? get_data.website : ""}
+                  <Text style={[styles.udtext, { textAlign: 'right' }]}>
+                    {get_data != undefined ? get_data.website : ''}
                   </Text>
                 </View>
               </Body>
@@ -302,31 +295,30 @@ const UserDetails = (props) => {
               <Body>
                 <Text
                   style={{
-                    textAlign: "center",
-                    color: "#B71C1C",
-                    fontWeight: "bold",
-                  }}
-                >
+                    textAlign: 'center',
+                    color: '#B71C1C',
+                    fontWeight: 'bold',
+                  }}>
                   ADDRESS
                 </Text>
                 <View style={styles.space}>
                   <Text style={styles.udtext}>
-                    Street{"\n"}Suit{"\n"}City{"\n"}Zipcode{"\n"}
-                    Geo-lat{"\n"}Geo-lng{"\n"}
+                    Street{'\n'}Suit{'\n'}City{'\n'}Zipcode{'\n'}
+                    Geo-lat{'\n'}Geo-lng{'\n'}
                   </Text>
-                  <Text style={[styles.udtext, { textAlign: "right" }]}>
-                    {get_data != undefined ? get_data.address.street : ""}
-                    {"\n"}
-                    {get_data != undefined ? get_data.address.suite : ""}
-                    {"\n"}
-                    {get_data != undefined ? get_data.address.city : ""}
-                    {"\n"}
-                    {get_data != undefined ? get_data.address.zipcode : ""}
-                    {"\n"}
-                    {get_data != undefined ? get_data.address.geo.lat : ""}
-                    {"\n"}
-                    {get_data != undefined ? get_data.address.geo.lng : ""}
-                    {"\n"}
+                  <Text style={[styles.udtext, { textAlign: 'right' }]}>
+                    {get_data != undefined ? get_data.address.street : ''}
+                    {'\n'}
+                    {get_data != undefined ? get_data.address.suite : ''}
+                    {'\n'}
+                    {get_data != undefined ? get_data.address.city : ''}
+                    {'\n'}
+                    {get_data != undefined ? get_data.address.zipcode : ''}
+                    {'\n'}
+                    {get_data != undefined ? get_data.address.geo.lat : ''}
+                    {'\n'}
+                    {get_data != undefined ? get_data.address.geo.lng : ''}
+                    {'\n'}
                   </Text>
                 </View>
               </Body>
@@ -337,28 +329,27 @@ const UserDetails = (props) => {
               <Body>
                 <Text
                   style={{
-                    textAlign: "center",
-                    color: "#B71C1C",
-                    fontWeight: "bold",
-                  }}
-                >
+                    textAlign: 'center',
+                    color: '#B71C1C',
+                    fontWeight: 'bold',
+                  }}>
                   COMPANY
                 </Text>
                 <View style={styles.space}>
                   <Text style={styles.udtext}>
-                    Name{"\n"}
-                    {"\n"}CatchPhrase{"\n"}
-                    {"\n"}Bs{"\n"}
+                    Name{'\n'}
+                    {'\n'}CatchPhrase{'\n'}
+                    {'\n'}Bs{'\n'}
                   </Text>
-                  <Text style={[styles.udtext, { textAlign: "right" }]}>
-                    {get_data != undefined ? get_data.company.name : ""}
-                    {"\n"}
-                    {"\n"}
-                    {get_data != undefined ? get_data.company.catchPhrase : ""}
-                    {"\n"}
-                    {"\n"}
-                    {get_data != undefined ? get_data.company.bs : ""}
-                    {"\n"}
+                  <Text style={[styles.udtext, { textAlign: 'right' }]}>
+                    {get_data != undefined ? get_data.company.name : ''}
+                    {'\n'}
+                    {'\n'}
+                    {get_data != undefined ? get_data.company.catchPhrase : ''}
+                    {'\n'}
+                    {'\n'}
+                    {get_data != undefined ? get_data.company.bs : ''}
+                    {'\n'}
                   </Text>
                 </View>
               </Body>
@@ -403,9 +394,9 @@ const Albums = (props) => {
   } else {
     return (
       <Container>
-        <Content style={{ width: "100%" }}>
-          <Header style={{ backgroundColor: "#0D47A1" }}>
-            <Body style={{ textAlign: "center", alignItems: "center" }}>
+        <Content style={{ width: '100%' }}>
+          <Header style={{ backgroundColor: '#0D47A1' }}>
+            <Body style={{ textAlign: 'center', alignItems: 'center' }}>
               <Text style={styles.text2}>Albums Name</Text>
             </Body>
           </Header>
@@ -418,20 +409,18 @@ const Albums = (props) => {
                   <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() =>
-                      props.navigation.navigate("AlbumsDetails", {
+                      props.navigation.navigate('AlbumsDetails', {
                         albumId: item.id,
                       })
                     }
-                    style={styles.cont}
-                  >
-                    <View style={{ flexDirection: "row" }}>
+                    style={styles.cont}>
+                    <View style={{ flexDirection: 'row' }}>
                       <Text
                         style={{
-                          width: "90%",
+                          width: '90%',
                           fontSize: 14,
-                          textAlign: "left",
-                        }}
-                      >
+                          textAlign: 'left',
+                        }}>
                         {item.title}
                       </Text>
                       <Entypo
@@ -439,18 +428,17 @@ const Albums = (props) => {
                         size={23}
                         color="#0D47A1"
                         style={{
-                          width: "10%",
-                          textAlign: "right",
-                          alignSelf: "center",
-                          fontWeight: "bold",
+                          width: '10%',
+                          textAlign: 'right',
+                          alignSelf: 'center',
+                          fontWeight: 'bold',
                         }}
                       />
                     </View>
                   </TouchableOpacity>
                 </ListItem>
               );
-            }}
-          ></List>
+            }}></List>
         </Content>
       </Container>
     );
@@ -487,8 +475,8 @@ const AlbumsDetails = ({ navigation, route }) => {
   return (
     <Container>
       <Content>
-        <Header style={{ backgroundColor: "#0D47A1" }}>
-          <Body style={{ textAlign: "center", alignItems: "center" }}>
+        <Header style={{ backgroundColor: '#0D47A1' }}>
+          <Body style={{ textAlign: 'center', alignItems: 'center' }}>
             <Text style={styles.text2}>Albums Titles and Thumbnails</Text>
           </Body>
         </Header>
@@ -500,34 +488,30 @@ const AlbumsDetails = ({ navigation, route }) => {
                 <TouchableOpacity
                   activeOpacity={0.5}
                   onPress={() =>
-                    navigation.navigate("AlbumsPhoto", {
+                    navigation.navigate('AlbumsPhoto', {
                       albumid: item.albumId,
                       photourl: item.url,
                       title: item.title,
                     })
                   }
-                  style={styles.cont}
-                >
+                  style={styles.cont}>
                   <View
                     style={{
-                      flexDirection: "row",
+                      flexDirection: 'row',
                       paddingVertical: 4,
                       paddingRight: 18,
-                    }}
-                  >
+                    }}>
                     <Thumbnail square source={{ uri: item.thumbnailUrl }} />
                     <Text
                       note
-                      style={{ alignContent: "stretch", paddingLeft: 6 }}
-                    >
+                      style={{ alignContent: 'stretch', paddingLeft: 6 }}>
                       {item.title}
                     </Text>
                   </View>
                 </TouchableOpacity>
               </ListItem>
             );
-          }}
-        ></List>
+          }}></List>
       </Content>
     </Container>
   );
@@ -539,8 +523,8 @@ const AlbumsPhoto = ({ navigation, route }) => {
   //console.log(phurl);
   return (
     <Container>
-      <Header style={{ backgroundColor: "#0D47A1" }}>
-        <Body style={{ textAlign: "center", alignItems: "center" }}>
+      <Header style={{ backgroundColor: '#0D47A1' }}>
+        <Body style={{ textAlign: 'center', alignItems: 'center' }}>
           <Text style={styles.text2}>Albums Photo</Text>
         </Body>
       </Header>
@@ -600,12 +584,12 @@ const Posts = (props) => {
   }
   return (
     <Container>
-      <Header style={{ backgroundColor: "#880E4F" }}>
-        <Body style={{ textAlign: "center", alignItems: "center" }}>
+      <Header style={{ backgroundColor: '#880E4F' }}>
+        <Body style={{ textAlign: 'center', alignItems: 'center' }}>
           <Text style={styles.text2}>Posts Title</Text>
         </Body>
       </Header>
-      <Content style={{ width: "100%" }}>
+      <Content style={{ width: '100%' }}>
         <List
           dataArray={get_data}
           renderRow={(item) => {
@@ -614,20 +598,18 @@ const Posts = (props) => {
                 <TouchableOpacity
                   activeOpacity={0.5}
                   onPress={() =>
-                    props.navigation.navigate("PostsDetails", {
+                    props.navigation.navigate('PostsDetails', {
                       postId: item.id,
                     })
                   }
-                  style={styles.cont}
-                >
-                  <View style={{ flexDirection: "row" }}>
+                  style={styles.cont}>
+                  <View style={{ flexDirection: 'row' }}>
                     <Text
                       style={{
-                        width: "90%",
+                        width: '90%',
                         fontSize: 14,
-                        textAlign: "left",
-                      }}
-                    >
+                        textAlign: 'left',
+                      }}>
                       {item.title}
                     </Text>
                     <MaterialCommunityIcons
@@ -635,17 +617,16 @@ const Posts = (props) => {
                       size={24}
                       color="#880E4F"
                       style={{
-                        width: "10%",
-                        textAlign: "right",
-                        alignSelf: "center",
+                        width: '10%',
+                        textAlign: 'right',
+                        alignSelf: 'center',
                       }}
                     />
                   </View>
                 </TouchableOpacity>
               </ListItem>
             );
-          }}
-        ></List>
+          }}></List>
       </Content>
     </Container>
   );
@@ -683,28 +664,27 @@ const PostsDetails = ({ navigation, route }) => {
   }
   return (
     <Container>
-      <Header style={{ backgroundColor: "#880E4F" }}>
-        <Body style={{ textAlign: "center", alignItems: "center" }}>
+      <Header style={{ backgroundColor: '#880E4F' }}>
+        <Body style={{ textAlign: 'center', alignItems: 'center' }}>
           <Text style={styles.text2}>Posts Comments</Text>
         </Body>
       </Header>
-      <Content style={{ width: "100%" }}>
+      <Content style={{ width: '100%' }}>
         <List
           dataArray={getData}
           renderRow={(item) => {
             return (
               <ListItem style={{}}>
-                <Card style={{ width: "100%" }}>
+                <Card style={{ width: '100%' }}>
                   <CardItem>
-                    <Left style={{ justifyContent: "flex-start" }}>
+                    <Left style={{ justifyContent: 'flex-start' }}>
                       <Body>
                         <Text
                           style={{
-                            fontWeight: "bold",
+                            fontWeight: 'bold',
                             fontSize: 14,
-                            textTransform: "uppercase",
-                          }}
-                        >
+                            textTransform: 'uppercase',
+                          }}>
                           {item.name}
                         </Text>
                       </Body>
@@ -719,8 +699,7 @@ const PostsDetails = ({ navigation, route }) => {
                     <Body>
                       <Text
                         note
-                        style={{ fontWeight: "bold", textAlign: "center" }}
-                      >
+                        style={{ fontWeight: 'bold', textAlign: 'center' }}>
                         {item.body}
                       </Text>
                     </Body>
@@ -730,23 +709,21 @@ const PostsDetails = ({ navigation, route }) => {
                       name="gmail"
                       size={24}
                       color="#880E4F"
-                      style={{ width: "20%", textAlign: "left" }}
+                      style={{ width: '20%', textAlign: 'left' }}
                     />
                     <Text
                       style={{
                         fontSize: 14,
-                        width: "80%",
-                        textAlign: "right",
-                      }}
-                    >
+                        width: '80%',
+                        textAlign: 'right',
+                      }}>
                       {item.email}
                     </Text>
                   </CardItem>
                 </Card>
               </ListItem>
             );
-          }}
-        ></List>
+          }}></List>
       </Content>
     </Container>
   );
@@ -784,7 +761,7 @@ const Todos = (props) => {
   return (
     <Container>
       <Content>
-        <Header style={{ backgroundColor: "#006064" }}>
+        <Header style={{ backgroundColor: '#006064' }}>
           <Body>
             <Text style={styles.text2}>Todos Title</Text>
           </Body>
@@ -797,52 +774,49 @@ const Todos = (props) => {
           renderRow={(item) => {
             return (
               <ListItem>
-                <View style={{ flexDirection: "row" }}>
-                  <Text
-                    style={{
-                      width: "90%",
-                      fontSize: 14,
-                      textAlign: "left",
-                    }}
-                  >
-                    {item.title}
-                  </Text>
-                  <Text
-                    style={{
-                      width: "10%",
-                      fontSize: 14,
-                      textAlign: "right",
-                    }}
-                  >
-                    {item.completed == true ? (
-                      <AntDesign
-                        name="checksquareo"
-                        size={18}
-                        color="#4DB6AC"
-                        style={{
-                          width: "10%",
-                          textAlign: "right",
-                          alignSelf: "center",
-                        }}
-                      />
-                    ) : (
-                      <AntDesign
-                        name="closesquareo"
-                        size={18}
-                        color="#006064"
-                        style={{
-                          width: "10%",
-                          textAlign: "right",
-                          alignSelf: "center",
-                        }}
-                      />
-                    )}
-                  </Text>
-                </View>
+                  <View style={[styles.cont,{ flexDirection: 'row' }]}>
+                    <Text
+                      style={{
+                        width: '90%',
+                        fontSize: 14,
+                        textAlign: 'left',
+                      }}>
+                      {item.title}
+                    </Text>
+                    <Text
+                      style={{
+                        width: '10%',
+                        fontSize: 14,
+                        textAlign: 'right',
+                      }}>
+                      {item.completed == true ? (
+                        <AntDesign
+                          name="checksquareo"
+                          size={18}
+                          color="#4DB6AC"
+                          style={{
+                            width: '10%',
+                            textAlign: 'right',
+                            alignSelf: 'center',
+                          }}
+                        />
+                      ) : (
+                        <AntDesign
+                          name="closesquareo"
+                          size={18}
+                          color="#006064"
+                          style={{
+                            width: '10%',
+                            textAlign: 'right',
+                            alignSelf: 'center',
+                          }}
+                        />
+                      )}
+                    </Text>
+                  </View>
               </ListItem>
             );
-          }}
-        ></List>
+          }}></List>
       </Content>
     </Container>
   );
@@ -850,15 +824,15 @@ const Todos = (props) => {
 
 function MainHeader({ navigation, route }) {
   return (
-    <View style={{ flexDirection: "row" }}>
-      <Text style={{ color: "#C2185B", fontSize: 20, fontWeight: "bold" }}>
+    <View style={{ flexDirection: 'row' }}>
+      <Text style={{ color: '#C2185B', fontSize: 20, fontWeight: 'bold' }}>
         USERS LIST
       </Text>
       <FontAwesome5
         name="users-cog"
         size={30}
         color="#C2185B"
-        style={{ alignItems: "center", marginHorizontal: 18 }}
+        style={{ alignItems: 'center', marginHorizontal: 18 }}
       />
     </View>
   );
@@ -869,19 +843,18 @@ export default function App() {
   return (
     <NavigationContainer>
       <StackN.Navigator
-        initialRouteName={"Home"}
+        initialRouteName={'Home'}
         screenOptions={{
-          title: "Welcome to our world",
-        }}
-      >
+          title: 'Welcome to our world',
+        }}>
         <StackN.Screen
           name="Home"
           component={HomeScreen}
           options={{
-            title: "List of users",
+            title: 'List of users',
             //headerShown: false,
-            headerTitleAlign: "center",
-            headerTintColor: "blue",
+            headerTitleAlign: 'center',
+            headerTintColor: 'blue',
             headerStyle: {
               //backgroundColor: 'blue',
             },
@@ -892,28 +865,28 @@ export default function App() {
           name="BottomTabs"
           component={BottomTabs}
           options={{
-            title: "Bottom Tab Navigator",
+            title: 'Bottom Tab Navigator',
           }}
         />
         <StackN.Screen
           name="AlbumsDetails"
           component={AlbumsDetails}
           options={{
-            title: "ALBUMS",
+            title: 'ALBUMS',
           }}
         />
         <StackN.Screen
           name="PostsDetails"
           component={PostsDetails}
           options={{
-            title: "POSTS",
+            title: 'POSTS',
           }}
         />
         <StackN.Screen
           name="AlbumsPhoto"
           component={AlbumsPhoto}
           options={{
-            title: "ALBUMS",
+            title: 'ALBUMS',
           }}
         />
       </StackN.Navigator>
@@ -923,27 +896,27 @@ export default function App() {
 
 const styles = StyleSheet.create({
   space: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   space2: {
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   text: {
     fontSize: 14,
-    textAlign: "center",
+    textAlign: 'center',
   },
   cont: {
-    width: "100%",
+    width: '100%',
   },
   text2: {
     fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "white",
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white',
   },
   udtext: {
     fontSize: 14,
